@@ -27,7 +27,7 @@ const playerSchema = new mongoose.Schema({
         required: true,
     },
     numero: {
-        type:Number,
+        type:String,
         required: true,
     },
     posicion: {
