@@ -30,7 +30,7 @@ const playerSchema = new mongoose_1.default.Schema({
         required: true,
     },
     numero: {
-        type: Number,
+        type: String,
         required: true,
     },
     posicion: {
