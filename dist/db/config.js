@@ -16,7 +16,6 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const connectToDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const uri = 'mongodb+srv://jeremyagnz:LRB1L7sykZfJSMIl@lns-db.8rcnq13.mongodb.net/lnsdb';
-        yield mongoose_1.default.connect(uri);
         yield mongoose_1.default.connection.syncIndexes();
         console.log('🛢️  Connected to DB and Collections Synchronized');
     }
