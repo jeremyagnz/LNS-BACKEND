@@ -9,24 +9,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const playesRepository_1 = require("../../db/implementations/playesRepository");
 const uuid_1 = require("uuid");
+const playesRepository_1 = require("../../db/implementations/playesRepository");
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, apellidos, numero, posicion, cedula, foto, equipo, fecha_nacimiento, bt } = req.body;
-    const playerPayload = {
-        id: (0, uuid_1.v4)(),
-        name,
-        apellidos,
-        numero,
-        posicion,
-        cedula,
-        foto,
-        equipo,
-        fecha_nacimiento,
-        bt
-    };
-    console.log(playerPayload);
-    yield (0, playesRepository_1.createPlayer)(playerPayload);
-    res.status(201).send({ message: "Player created" });
+    try {
+        const { name, apellidos, numero, posicion, cedula, foto, equipo, fecha_nacimiento, bt } = req.body;
+        if (!name || !apellidos || !numero || !posicion || !cedula || !foto || !equipo || !fecha_nacimiento || !bt) {
+            console.log("Invalid player data: Missing required fields");
+            return res.status(400).send("Invalid player data: Missing required fields");
+        }
+        const playerPayload = {
+            id: (0, uuid_1.v4)(),
+            name,
+            apellidos,
+            numero,
+            posicion,
+            cedula,
+            foto,
+            equipo,
+            fecha_nacimiento,
+            bt
+        };
+        console.log(playerPayload);
+        yield (0, playesRepository_1.createPlayer)(playerPayload);
+        return res.status(201).send({ message: "Player created" });
+    }
+    catch (error) {
+        console.error("Error in create operation:", error);
+        return res.status(500).send("Internal Server Error");
+    }
 });
 exports.default = create;

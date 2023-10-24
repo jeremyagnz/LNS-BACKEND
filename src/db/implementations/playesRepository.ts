@@ -1,25 +1,51 @@
-import { Player } from "../models"
+import { Player } from "../models";
 
-
-export const createPlayer = async (player: any) => {
-    return await Player.create(player)
+// Crea un nuevo jugador
+export const createPlayer = async (playerData: any) => {
+  try {
+    return await Player.create(playerData);
+  } catch (error) {
+    console.error("Error creating player:", error);
+    throw error;
+  }
 }
+
+// Obtiene todos los jugadores
 export const getAllPlayers = async () => {
-    return await Player.find()
+  try {
+    return await Player.find();
+  } catch (error) {
+    console.error("Error fetching players:", error);
+    throw error;
+  }
 }
 
+// Obtiene un jugador por su ID
 export const getPlayer = async (id: string) => {
-    return await Player.findOne({ id: id })
+  try {
+    return await Player.findOne({ id: id });
+  } catch (error) {
+    console.error("Error fetching player by ID:", error);
+    throw error;
+  }
 }
 
+// Elimina un jugador por su ID
 export const removePlayer = async (id: string) => {
-    return await Player.deleteOne({ id: id })
+  try {
+    return await Player.deleteOne({ id: id });
+  } catch (error) {
+    console.error("Error deleting player by ID:", error);
+    throw error;
+  }
 }
 
-export const updatePlayer = async (id: string, player: any) => {
-    return await Player.findOneAndUpdate({ id: id },
-        {
-            name: player.name, naapellidos: player.apellidos, numero: player.numero, posicion: player.posicion,
-            cedula: player.cedula, foto: player.foto, equipo: player.equipo, fecha_nacimiento: player.fecha_nacimiento, bt: player.bt
-        });
+// Actualiza un jugador por su ID
+export const updatePlayer = async (id: string, updatedPlayerData: any) => {
+  try {
+    return await Player.findOneAndUpdate({ id: id }, updatedPlayerData);
+  } catch (error) {
+    console.error("Error updating player by ID:", error);
+    throw error;
+  }
 }

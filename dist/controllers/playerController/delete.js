@@ -11,8 +11,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const playesRepository_1 = require("../../db/implementations/playesRepository");
 const remove = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.query;
-    yield (0, playesRepository_1.removePlayer)(id);
-    return res.status(200).send({ message: 'The player was deleted' });
+    try {
+        const { id } = req.query;
+        if (!id) {
+            console.log("Missing 'id' in the request query");
+            return res.status(400).send("Missing 'id' in the request query");
+        }
+        yield (0, playesRepository_1.removePlayer)(id);
+        return res.status(200).send({ message: 'The player was deleted' });
+    }
+    catch (error) {
+        console.error("Error in remove operation:", error);
+        return res.status(500).send("Internal Server Error");
+    }
 });
 exports.default = remove;

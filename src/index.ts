@@ -9,16 +9,19 @@ import './db/models/index';
 const app = express();
 const port = 3000;
 
-//Middelwars
+// Middlewares
 app.use(cors());
 app.use(helmet());
 app.use(compression());
 app.use(express.json());
 
+// Connect to the database
 connectToDatabase();
 
-app.use(routes)
+// Define routes
+app.use(routes);
 
+// Start the server
 app.listen(port, () => {
-  console.log(`Servidor Express escuchando en el puerto ${port}`);
+  console.log(`Server listening on port ${port}`);
 });

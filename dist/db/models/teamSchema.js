@@ -8,20 +8,22 @@ const teamSchema = new mongoose_1.default.Schema({
     id: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     name: {
         type: String,
         required: true,
     },
-    logo: {
-        type: String,
-    },
+    logo: String,
     manager: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
-}, { collection: 'team', timestamps: false, versionKey: false });
+}, {
+    collection: 'team',
+    timestamps: false,
+    versionKey: false,
+});
 const Team = mongoose_1.default.model('team', teamSchema);
 exports.default = Team;

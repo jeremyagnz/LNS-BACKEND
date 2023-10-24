@@ -8,7 +8,7 @@ const playerSchema = new mongoose_1.default.Schema({
     id: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     name: {
         type: String,
@@ -22,9 +22,7 @@ const playerSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
     },
-    foto: {
-        type: String,
-    },
+    foto: String,
     equipo: {
         type: String,
         required: true,
@@ -45,6 +43,10 @@ const playerSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
     },
-}, { collection: 'player', timestamps: false, versionKey: false });
+}, {
+    collection: 'player',
+    timestamps: false,
+    versionKey: false,
+});
 const Player = mongoose_1.default.model('player', playerSchema);
 exports.default = Player;
