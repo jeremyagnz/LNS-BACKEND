@@ -12,15 +12,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const teamRepository_1 = require("../../db/implementations/teamRepository");
 const uuid_1 = require("uuid");
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, logo, manager } = req.body;
-    const teamPayload = {
-        id: (0, uuid_1.v4)(),
-        name,
-        logo,
-        manager
-    };
-    console.log(teamPayload);
-    yield (0, teamRepository_1.createTeam)(teamPayload);
-    res.status(201).send({ message: "Team created" });
+    try {
+        const { name, logo, manager } = req.body;
+        if (!name || !logo || !manager) {
+            console.log("Invalid team data: Missing name, logo, or manager");
+            return res.status(400).send("Invalid team data: Missing name, logo, or manager");
+        }
+        const teamPayload = {
+            id: (0, uuid_1.v4)(),
+            name,
+            logo,
+            manager
+        };
+        console.log(teamPayload);
+        yield (0, teamRepository_1.createTeam)(teamPayload);
+        return res.status(201).send({ message: "Team created" });
+    }
+    catch (error) {
+        console.error("Error in create operation:", error);
+        return res.status(500).send("Internal Server Error");
+    }
 });
 exports.default = create;

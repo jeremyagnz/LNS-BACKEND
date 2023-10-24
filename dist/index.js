@@ -12,13 +12,16 @@ const index_1 = __importDefault(require("./routes/index"));
 require("./db/models/index");
 const app = (0, express_1.default)();
 const port = 3000;
-//Middelwars
+// Middlewares
 app.use((0, cors_1.default)());
 app.use((0, helmet_1.default)());
 app.use((0, compression_1.default)());
 app.use(express_1.default.json());
+// Connect to the database
 (0, config_1.default)();
+// Define routes
 app.use(index_1.default);
+// Start the server
 app.listen(port, () => {
-    console.log(`Servidor Express escuchando en el puerto ${port}`);
+    console.log(`Server listening on port ${port}`);
 });

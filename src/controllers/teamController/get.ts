@@ -1,17 +1,33 @@
-import { getAllTeam, getTeam } from "../../db/implementations/teamRepository";
+import { getAllTeams, getTeamById } from "../../db/implementations/teamRepository";
 
-const get = async (req:any, res:any) => {
-    const {id} = req.query;
+const get = async (req: any, res: any) => {
+  try {
+    const { id } = req.query;
 
-    if(id){
-     const response = await getTeam(id);
-     console.log(response);
-     return res.status(200).send(response);
+    if (id) {
+      const team = await getTeamById(id);
+
+      if (team) {
+        console.log(team);
+        return res.status(200).send(team);
+      } else {
+        console.log("Team not found");
+        return res.status(404).send("Team not found");
+      }
     }
 
-    const resAll = await getAllTeam();
-    console.log(resAll);
-    return res.status(200).send(resAll);
-}
+    const allTeams = await getAllTeams();
+    if (allTeams && allTeams.length > 0) {
+      console.log(allTeams);
+      return res.status(200).send(allTeams);
+    } else {
+      console.log("No teams found");
+      return res.status(404).send("No teams found");
+    }
+  } catch (error) {
+    console.error("Error in get operation:", error);
+    return res.status(500).send("Internal Server Error");
+  }
+};
 
 export default get;

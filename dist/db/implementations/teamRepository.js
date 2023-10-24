@@ -9,25 +9,60 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateTeam = exports.removeTeam = exports.getTeam = exports.getAllTeam = exports.createTeam = void 0;
+exports.updateTeam = exports.removeTeam = exports.getTeamById = exports.getAllTeams = exports.createTeam = void 0;
 const models_1 = require("../models");
-const createTeam = (team) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield models_1.Team.create(team);
+// Crea un nuevo equipo
+const createTeam = (teamData) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield models_1.Team.create(teamData);
+    }
+    catch (error) {
+        console.error("Error creating team:", error);
+        throw error;
+    }
 });
 exports.createTeam = createTeam;
-const getAllTeam = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield models_1.Team.find();
+// Obtiene todos los equipos
+const getAllTeams = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield models_1.Team.find();
+    }
+    catch (error) {
+        console.error("Error fetching teams:", error);
+        throw error;
+    }
 });
-exports.getAllTeam = getAllTeam;
-const getTeam = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield models_1.Team.findOne({ id: id });
+exports.getAllTeams = getAllTeams;
+// Obtiene un equipo por su ID
+const getTeamById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield models_1.Team.findOne({ id: id });
+    }
+    catch (error) {
+        console.error("Error fetching team by ID:", error);
+        throw error;
+    }
 });
-exports.getTeam = getTeam;
+exports.getTeamById = getTeamById;
+// Elimina un equipo por su ID
 const removeTeam = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield models_1.Team.deleteOne({ id: id });
+    try {
+        return yield models_1.Team.deleteOne({ id: id });
+    }
+    catch (error) {
+        console.error("Error deleting team by ID:", error);
+        throw error;
+    }
 });
 exports.removeTeam = removeTeam;
-const updateTeam = (id, team) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield models_1.Team.findOneAndUpdate({ id: id }, { nombre: team.nombre, logo: team.logo, manager: team.manager });
+// Actualiza un equipo por su ID
+const updateTeam = (id, updatedTeamData) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield models_1.Team.findOneAndUpdate({ id: id }, updatedTeamData);
+    }
+    catch (error) {
+        console.error("Error updating team by ID:", error);
+        throw error;
+    }
 });
 exports.updateTeam = updateTeam;

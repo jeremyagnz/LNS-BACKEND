@@ -11,14 +11,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const teamRepository_1 = require("../../db/implementations/teamRepository");
 const get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.query;
-    if (id) {
-        const response = yield (0, teamRepository_1.getTeam)(id);
-        console.log(response);
-        return res.status(200).send(response);
+    try {
+        const { id } = req.query;
+        if (id) {
+            const team = yield (0, teamRepository_1.getTeamById)(id);
+            if (team) {
+                console.log(team);
+                return res.status(200).send(team);
+            }
+            else {
+                console.log("Team not found");
+                return res.status(404).send("Team not found");
+            }
+        }
+        const allTeams = yield (0, teamRepository_1.getAllTeams)();
+        if (allTeams && allTeams.length > 0) {
+            console.log(allTeams);
+            return res.status(200).send(allTeams);
+        }
+        else {
+            console.log("No teams found");
+            return res.status(404).send("No teams found");
+        }
     }
-    const resAll = yield (0, teamRepository_1.getAllTeam)();
-    console.log(resAll);
-    return res.status(200).send(resAll);
+    catch (error) {
+        console.error("Error in get operation:", error);
+        return res.status(500).send("Internal Server Error");
+    }
 });
 exports.default = get;

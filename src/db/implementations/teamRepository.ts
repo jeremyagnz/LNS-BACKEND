@@ -1,21 +1,51 @@
 import { Team } from "../models";
 
-export const createTeam = async (team:any) => {
-    return await Team.create(team)
+// Crea un nuevo equipo
+export const createTeam = async (teamData: any) => {
+  try {
+    return await Team.create(teamData);
+  } catch (error) {
+    console.error("Error creating team:", error);
+    throw error;
+  }
 }
 
-export const getAllTeam = async () => {
-    return await Team.find()
+// Obtiene todos los equipos
+export const getAllTeams = async () => {
+  try {
+    return await Team.find();
+  } catch (error) {
+    console.error("Error fetching teams:", error);
+    throw error;
+  }
 }
 
-export const getTeam = async (id:string) => {
-    return await Team.findOne({id:id})
+// Obtiene un equipo por su ID
+export const getTeamById = async (id: string) => {
+  try {
+    return await Team.findOne({ id: id });
+  } catch (error) {
+    console.error("Error fetching team by ID:", error);
+    throw error;
+  }
 }
 
-export const removeTeam = async (id:string) => {
-    return await Team.deleteOne({id:id})
+// Elimina un equipo por su ID
+export const removeTeam = async (id: string) => {
+  try {
+    return await Team.deleteOne({ id: id });
+  } catch (error) {
+    console.error("Error deleting team by ID:", error);
+    throw error;
+  }
 }
 
-export const updateTeam = async (id:string, team:any) => {
-    return await Team.findOneAndUpdate({id:id}, {nombre:team.nombre, logo:team.logo, manager:team.manager});
+// Actualiza un equipo por su ID
+export const updateTeam = async (id: string, updatedTeamData: any) => {
+  try {
+    return await Team.findOneAndUpdate({ id: id }, updatedTeamData);
+  } catch (error) {
+    console.error("Error updating team by ID:", error);
+    throw error;
+  }
 }
