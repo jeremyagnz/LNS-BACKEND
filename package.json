@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node ./dist/index.js",
-    "start": "nodemon ./dist/index.js",
+    "build": "tsc",
+    "start": "node ./dist/index.js",
     "ts": "tsc --watch",
     "postinstall": "tsc"
   },
