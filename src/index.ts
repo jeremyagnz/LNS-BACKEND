@@ -7,7 +7,7 @@ import routes from './routes/index';
 import './db/models/index';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middlewares
 app.use(cors());
