@@ -11,7 +11,7 @@ const helmet_1 = __importDefault(require("helmet"));
 const index_1 = __importDefault(require("./routes/index"));
 require("./db/models/index");
 const app = (0, express_1.default)();
-const port = 3000;
+const port = process.env.PORT || 3000;
 // Middlewares
 app.use((0, cors_1.default)());
 app.use((0, helmet_1.default)());
